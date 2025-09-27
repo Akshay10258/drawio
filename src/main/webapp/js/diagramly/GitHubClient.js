@@ -606,7 +606,8 @@ GitHubClient.prototype.createGitHubFile = function(org, repo, ref, data, asLibra
 			}
 			else
 			{
-				content = Base64.decode(content);
+				const bytes = Uint8Array.from(Base64.decode(content, true), ch => ch.charCodeAt(0));
+   				content = new TextDecoder('utf-8').decode(bytes);
 			}
 		}
 	}
